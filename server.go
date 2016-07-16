@@ -254,7 +254,7 @@ func (s *Server) WidgetsJSHandler(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		return
 	}
-	err = box.Walk("", func(filepath string, f os.FileInfo, err error) error {
+	box.Walk("", func(filepath string, f os.FileInfo, err error) error {
 		if path.Ext(filepath) == ".js" && !stringInSlice(s.webroot+"widgets/"+filepath, files) {
 			content, erre := box.String(filepath)
 			if erre != nil {
@@ -293,7 +293,7 @@ func (s *Server) WidgetsCSSHandler(w http.ResponseWriter, r *http.Request) {
 		log.Printf("fdlmsk %s", err.Error())
 		return
 	}
-	err = box.Walk("", func(filepath string, f os.FileInfo, err error) error {
+	box.Walk("", func(filepath string, f os.FileInfo, err error) error {
 		log.Printf("filepath %s", filepath)
 		if path.Ext(filepath) == ".css" && !stringInSlice(s.webroot+"widgets/"+filepath, files) {
 			content, _ := box.String(filepath)
