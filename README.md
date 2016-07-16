@@ -9,8 +9,7 @@ A [Go][1] port of [shopify/dashing][2] without any dependency !
 * auto schedule and run jobs you place in ```jobs/``` folder
 
 # 1 minute start
-## Download 
-linux, windows, osx binaries : https://github.com/vjeantet/goDash/releases
+Download a binary accordingly to your system : https://github.com/vjeantet/goDash/releases
 
 ## Start goDash :
 ```
@@ -30,7 +29,7 @@ Open your browser, go to http://127.0.0.1:8080
 
 
 
-### settings
+# Settings
 Change some settings with env variables
 * ```PORT``` to choose which port to listen to
 * ```WEBROOT``` to change the goDash working directory
