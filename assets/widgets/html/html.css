@@ -1,0 +1,15 @@
+.widget-html {
+  background-color: #ec663c;
+}
+.widget-html .title {
+  color: rgba(255, 255, 255, 0.7);
+}
+.widget-html .more-info {
+  color: rgba(255, 255, 255, 0.7);
+}
+.widget-html .updated-at {
+  color: rgba(255, 255, 255, 0.7);
+}
+.widget-html.large h3 {
+  font-size: 65px;
+}

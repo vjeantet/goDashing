@@ -1,0 +1,17 @@
+.widget-pie-chart {
+  background-color: #303030;
+}
+.widget-pie-chart .title {
+  left: 0;
+  right: 0;
+  top: 10px;
+  position: absolute;
+  z-index: 1;
+  color: rgba(255, 255, 255, 0.7);
+}
+.widget-pie-chart .more-info {
+  color: rgba(255, 255, 255, 0.7);
+}
+.widget-pie-chart .updated-at {
+  color: white;
+}

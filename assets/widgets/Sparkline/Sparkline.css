@@ -1,0 +1,37 @@
+.widget-sparkline {
+  background-color: #495f34;
+  position: relative;
+}
+.widget-sparkline div.sparkline-container {
+  margin-left: -12px;
+  margin-right: -12px;
+}
+.widget-sparkline svg {
+  position: block;
+  opacity: 0.4;
+  fill-opacity: 0.4;
+  padding: 3px 0px 4px;
+  width: 100%;
+}
+.widget-sparkline .title {
+  color: rgba(255, 255, 255, 0.7);
+}
+.widget-sparkline .value {
+  color: #fff;
+  font-size: 2.5em;
+  text-transform: lowercase;
+}
+.widget-sparkline .change-rate {
+  font-weight: 500;
+  font-size: 30px;
+  color: #fff;
+}
+.widget-sparkline .more-info {
+  color: rgba(255, 255, 255, 0.7);
+}
+.widget-sparkline .updated-at {
+  color: rgba(0, 0, 0, 0.3);
+}
+.widget-sparkline .x_tick, .widget-sparkline .y_ticks, .widget-sparkline .domain {
+  display: none;
+}

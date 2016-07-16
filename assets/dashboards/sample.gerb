@@ -1,0 +1,84 @@
+<% content "title" { %>Awesome !<% } %>
+<div class="gridster">
+  <ul>
+  
+
+
+  <li data-row="2" data-col="1" data-sizex="2" data-sizey="1">
+    <div data-id="sampleTXT" data-view="Text" data-text="TEST"></div>
+  </li>
+
+  <li data-row="2" data-col="1" data-sizex="2" data-sizey="1">
+    <div data-id="sampleTXT" data-view="Html" data-text="TESTH"></div>
+  </li>
+
+
+
+  <li data-row="4" data-col="1" data-sizex="2" data-sizey="1">
+    <div data-id="myiframe" data-view="Image" data-image="http://www.velior.ru/wp-content/uploads/2009/05/Test-Computer-Key-by-Stuart-Miles.jpg"></div>
+  </li>
+
+<li data-row="1" data-col="2" data-sizex="1" data-sizey="1">
+  <div data-id="radarchart" data-view ="RadarChart" data-title="Radar Chart" data-moreinfo="sfdsdfq"></div>
+</li>
+
+<li data-row="1" data-col="3" data-sizex="1" data-sizey="1">
+  <div data-id="piechart" data-view ="PieChart" data-title="Pie Chart" data-moreinfo="Using segmentShowStroke: true"></div>
+</li>
+
+<li data-row="1" data-col="1" data-sizex="1" data-sizey="1">
+  <div data-id="linechart" data-view ="LineChart" data-title="Line Chart" data-moreinfo=""></div>
+</li>
+
+
+<li data-row="2" data-col="3" data-sizex="1" data-sizey="1">
+  <div data-id="doughnutchart" data-view ="DoughnutChart" data-title="Doughnut Chart" data-moreinfo="Using segmentShowStroke: true"></div>
+</li>
+
+
+<li data-row="1" data-col="1" data-sizex="1" data-sizey="1">
+  <div data-id="water_main_city" data-view="Sparkline" data-title="Water Consumed" data-moreinfo="Main City" data-graphtype="lineplot" data-suffix=" l/h"></div>
+</li>
+
+
+
+
+  <li data-row="1" data-col="3" data-sizex="1" data-sizey="1">
+  <div data-id="polarchart" data-view ="PolarChart" data-title="Polar Chart" data-moreinfo="Using segmentShowStroke: true"></div>
+</li>
+
+  <li data-row="2" data-col="1" data-sizex="1" data-sizey="1">
+    <div data-id="barchart" data-view="BarChart" data-title="Bar Chart" data-moreinfo=""></div>
+  </li>
+
+  <li data-row="2" data-col="1" data-sizex="2" data-sizey="1">
+    <div data-view="TwelveHourClock"></div>
+  </li>
+
+      <li data-row="1" data-col="1" data-sizex="2" data-sizey="1">
+      <div data-id="welcome" data-view="Text" data-title="Hello" data-text="This is your shiny new dashboard." data-moreinfo="Protip: You can drag the widgets around!"></div>
+    </li>
+
+    <li data-row="1" data-col="1" data-sizex="1" data-sizey="1">
+      <div data-id="synergy" data-view="Meter" data-title="Synergy" data-min="0" data-max="100"></div>
+    </li>
+
+    <li data-row="1" data-col="1" data-sizex="1" data-sizey="2">
+      <div data-id="buzzwords" data-view="List" data-unordered="true" data-title="Buzzwords" data-moreinfo="# of times said around the office"></div>
+    </li>
+
+    <li data-row="1" data-col="1" data-sizex="1" data-sizey="1">
+      <div data-id="valuation" data-view="Number" data-title="Current Valuation" data-moreinfo="In billions" data-prefix="$"></div>
+    </li>
+
+    <li data-row="1" data-col="1" data-sizex="2" data-sizey="1">
+      <div data-id="convergence" data-view="Graph" data-title="Convergence" style="background-color:#ff9618"></div>
+    </li>
+ 
+
+
+
+
+  </ul>
+  <center><div style="font-size: 12px">Try this: curl -d '{ "auth_token": "YOUR_AUTH_TOKEN", "text": "Hey, Look what I can do!" }' http://<%= request.host %>/widgets/welcome</div></center>
+</div>

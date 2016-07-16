@@ -1,0 +1,28 @@
+.widget-bar-chart {
+
+  background-color: #303030;
+
+  .title {
+
+      left: 0;
+      right: 0;
+      top: 10px;
+      position: absolute;
+
+      /*center title*/
+      /*position: relative;*/
+
+
+    z-index: 1;
+    color: rgba(255, 255, 255, 0.7);
+  }
+
+  .more-info {
+    color: rgba(255, 255, 255, 0.7);
+  }
+
+  .updated-at {
+    color: rgba(255, 255, 255, 1);
+  }
+
+}

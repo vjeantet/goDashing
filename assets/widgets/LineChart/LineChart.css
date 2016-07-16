@@ -1,0 +1,14 @@
+.widget-line-chart {
+  background-color: #303030;
+}
+.widget-line-chart .title {
+  position: relative;
+  z-index: 1;
+  color: rgba(255, 255, 255, 0.7);
+}
+.widget-line-chart .more-info {
+  color: rgba(255, 255, 255, 0.7);
+}
+.widget-line-chart .updated-at {
+  color: white;
+}

@@ -1,0 +1,151 @@
+{
+	"comment": "",
+	"ignore": "test",
+	"package": [
+		{
+			"checksumSHA1": "UJTpOZ5IuuyoWFrS42uw/167mn0=",
+			"path": "github.com/BurntSushi/toml",
+			"revision": "f0aeabca5a127c4078abb8c8d64298b147264b55",
+			"revisionTime": "2016-04-26T10:16:13Z"
+		},
+		{
+			"checksumSHA1": "nuRsA47jQCgorbkfWZUGriMpofM=",
+			"path": "github.com/GeertJohan/go.rice",
+			"revision": "42fe5e1e4e358b413e3e1a7b2243ec8599209107",
+			"revisionTime": "2015-04-12T12:50:39Z"
+		},
+		{
+			"checksumSHA1": "xECV8VmnSwtMPugLqB1OAXwOs48=",
+			"path": "github.com/GeertJohan/go.rice/embedded",
+			"revision": "42fe5e1e4e358b413e3e1a7b2243ec8599209107",
+			"revisionTime": "2015-04-12T12:50:39Z"
+		},
+		{
+			"checksumSHA1": "2WiMj8XreStqb6kExlDmvmCOTGU=",
+			"path": "github.com/PuerkitoBio/goquery",
+			"revision": "f0d75731e0db647903c8611d00c7b85002751317",
+			"revisionTime": "2016-06-29T12:59:28Z"
+		},
+		{
+			"checksumSHA1": "YKJEHQmesxr6ExwGE4WZrpQsq4s=",
+			"path": "github.com/andybalholm/cascadia",
+			"revision": "3ad29d1ad1c4f2023e355603324348cf1f4b2d48",
+			"revisionTime": "2015-07-30T17:44:59Z"
+		},
+		{
+			"checksumSHA1": "nynanhnbROZsZcumBAbyB+b9rV8=",
+			"path": "github.com/andygrunwald/go-jira",
+			"revision": "6c73f2f575b03e77fd3ea8ad7f7d47ec8fd5a740",
+			"revisionTime": "2016-06-19T13:09:45Z"
+		},
+		{
+			"checksumSHA1": "KfvemLBC4qcwS1Y/lDi+mwM1D7w=",
+			"path": "github.com/carlescere/scheduler",
+			"revision": "5e2cc370dae40237c2a08b9181d4c84faf4150e9",
+			"revisionTime": "2016-03-15T23:45:36Z"
+		},
+		{
+			"checksumSHA1": "ndiwZWA+HJRH1lhcyzENj99MQk0=",
+			"path": "github.com/clbanning/mxj",
+			"revision": "79ba9041a5647283a38fdfc2bc6619b9d2761e4d",
+			"revisionTime": "2016-05-02T11:20:58Z"
+		},
+		{
+			"checksumSHA1": "8i+beEgcVf0q/I7lTqo2ERZM/OU=",
+			"path": "github.com/daaku/go.zipexe",
+			"revision": "a5fe2436ffcb3236e175e5149162b41cd28bd27d",
+			"revisionTime": "2015-03-29T02:31:25Z"
+		},
+		{
+			"checksumSHA1": "tmg97hvzPc3XqSA1xrSLW8h5ckw=",
+			"path": "github.com/fatih/structs",
+			"revision": "24f3e1df2f5ffab5696aaa95cf0b8dea167ef084",
+			"revisionTime": "2016-05-10T12:09:22Z"
+		},
+		{
+			"checksumSHA1": "yyAzHoiVLu+xywYI2BDyRq6sOqE=",
+			"path": "github.com/google/go-querystring/query",
+			"revision": "9235644dd9e52eeae6fa48efd539fdc351a0af53",
+			"revisionTime": "2016-03-11T01:20:12Z"
+		},
+		{
+			"checksumSHA1": "nnblGNuHFTKJggP7GPdHghGOQuU=",
+			"path": "github.com/husobee/vestigo",
+			"revision": "2d12235bd0f9c9dc1dcf1d77513f8f6d8c900865",
+			"revisionTime": "2016-07-06T20:11:58Z"
+		},
+		{
+			"checksumSHA1": "QVALLtQ7n6pt+YJiFrnng1O86PI=",
+			"path": "github.com/k0kubun/pp",
+			"revision": "36d5366f4ec038f9a76dd85c7b29074089bb9b9e",
+			"revisionTime": "2015-07-23T12:16:29Z"
+		},
+		{
+			"checksumSHA1": "6nmAJBw2phU9MUmkUnqFvbO5urg=",
+			"path": "github.com/kardianos/osext",
+			"revision": "29ae4ffbc9a6fe9fb2bc5029050ce6996ea1d3bc",
+			"revisionTime": "2015-12-22T15:32:29Z"
+		},
+		{
+			"checksumSHA1": "tgSYC86jgIXb6myJzBdlvIHqDt8=",
+			"path": "github.com/karlseguin/gerb/core",
+			"revision": "a6088cc65a6b0af43757842a881b177f6ca218a7",
+			"revisionTime": "2015-02-09T10:42:44Z"
+		},
+		{
+			"checksumSHA1": "T7HAsMDW+/ABAUjRHc14Uybi5HM=",
+			"path": "github.com/karlseguin/gerb/r",
+			"revision": "a6088cc65a6b0af43757842a881b177f6ca218a7",
+			"revisionTime": "2015-02-09T10:42:44Z"
+		},
+		{
+			"checksumSHA1": "/zjnnN/Hrijtm1ObxnEPHhuFl8c=",
+			"path": "github.com/mattn/go-colorable",
+			"revision": "e8a10ddc7d2a7fe255f6fd7f501070a4cb62c183",
+			"revisionTime": "2016-05-12T03:41:14Z"
+		},
+		{
+			"checksumSHA1": "Je20y0Kn3lDiOdnG18T5DXUumls=",
+			"path": "github.com/streamrail/concurrent-map",
+			"revision": "65a174a3a4188c0b7099acbc6cfa0c53628d3287",
+			"revisionTime": "2016-05-24T09:07:57Z"
+		},
+		{
+			"checksumSHA1": "vqc3a+oTUGX8PmD0TS+qQ7gmN8I=",
+			"path": "golang.org/x/net/html",
+			"revision": "30be488e9140ebb7fac3b2995ac5a4b4d5e715ed",
+			"revisionTime": "2016-04-23T13:36:41Z"
+		},
+		{
+			"checksumSHA1": "00eQaGynDYrv3tL+C7l9xH0IDZg=",
+			"path": "golang.org/x/net/html/atom",
+			"revision": "30be488e9140ebb7fac3b2995ac5a4b4d5e715ed",
+			"revisionTime": "2016-04-23T13:36:41Z"
+		},
+		{
+			"checksumSHA1": "z6I9VSNp+5om+J0ZpB6wGaOq4e4=",
+			"path": "gopkg.in/fsnotify.v1",
+			"revision": "508915b7500b6e42a87132e4afeb4729cebc7cbb",
+			"revisionTime": "2015-12-17T18:48:24Z"
+		},
+		{
+			"checksumSHA1": "AF8nZPZNv7R5SN8qZ2rsfALjIJ4=",
+			"path": "gopkg.in/karlseguin/bytepool.v3",
+			"revision": "f088ef2719bd222fe8c29e3dcd72e0b8c007ac87",
+			"revisionTime": "2015-10-25T04:29:30Z"
+		},
+		{
+			"checksumSHA1": "ZLV9L+Ck+pdr9iRO7Vs9+EOs6/s=",
+			"path": "gopkg.in/karlseguin/ccache.v1",
+			"revision": "41f1a3cfcb0befd3717ffb1365bd75f5383a5e5d",
+			"revisionTime": "2015-01-07T01:12:17Z"
+		},
+		{
+			"checksumSHA1": "L+piI2HEyGItoE2maUb4edwClEo=",
+			"path": "gopkg.in/karlseguin/gerb.v0",
+			"revision": "a6088cc65a6b0af43757842a881b177f6ca218a7",
+			"revisionTime": "2015-02-09T10:42:44Z"
+		}
+	],
+	"rootPath": "github.com/vjeantet/dashing-go"
+}

@@ -1,0 +1,14 @@
+.widget-radar-chart {
+  background-color: #303030;
+}
+.widget-radar-chart .title {
+  position: relative;
+  z-index: 1;
+  color: rgba(255, 255, 255, 0.7);
+}
+.widget-radar-chart .more-info {
+  color: rgba(255, 255, 255, 0.7);
+}
+.widget-radar-chart .updated-at {
+  color: white;
+}
