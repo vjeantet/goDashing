@@ -3,31 +3,72 @@ goDash
 
 A [Go][1] port of [shopify/dashing][2] without any dependency !
 
-## Features
-* embeded web server
+# Features
 * embeded web assets (javascript / css / ...) 
-	* goDash will use your assets if found on disk. 
+	* goDash will use your assets if they exists on disk. 
 * auto schedule and run jobs you place in ```jobs/``` folder
 
-## 1 minute start
-Download binary here : 
-* linux, windows, osx available here : https://github.com/vjeantet/goDash/releases
+# 1 minute start
+## Download binary here : 
 
-Start it :
+linux, windows, osx available here : https://github.com/vjeantet/goDash/releases
+
+## Start goDash :
 ```
-./goDash-xxxx
+$ ./goDash
 ```
+* goDash will listen on port 8080
+* goDash will create a example dashboard and jobs to feed it
+	* if a ```dashboards``` folder already exists, it will not create it.
+	* if a ```jobs``` folder already exists, it will not create it.
+## Enjoy :
+Open your browser, go to http://127.0.0.1:8080
 
 
-## Create a new dashboard
+### settings
+Change some settings with env variables
+* ```PORT``` to choose which port to listen to
+* ```WEBROOT``` to change the goDash working directory
+* ```TOKEN``` to set a token to use with Dashing API
 
-## Feed data to your dashbord with jobs
+
+# Create a new dashboard
+create a name_here.gerb file in the ```dashboards``` folder
+
+* every 20s, goDash will switch to each dashboard it founds in this folder.
+* you can group your dashboard in a folder.
+	* example : ```dashboards/mygroup/dashboard1.gerb  will be available to http://127.0.0.1:8080/mygroup/dashboard1. 
+	* doDash will auto switch dashboards it founds in the sub folder.
+
+## Customize layout
+* modify ```dashboards/layout.gerb```
+	* if you add a layout.gerb in a dashboards/subfolder it will be used by goDash when display a subfolder's dashboard.
+
+
+# Feed data to your dashbord with jobs
+When you place a file in ```jobs``` folder Then goDash will immediatly execute and schedule it according to this convention : ```NUMBEROFSECONDS_WIDGETID.ext```
+* filename has 2 parts :
+	* NUMBEROFSECONDS,  interval in seconds for each execution of this file.
+	* WIDGETID, the ID of the widget on your dashboard.
+	* .ext, If the file is a php file, it will be run assuming ```php``` is available on your system.
+
+The output of the exected file feed should be a json representing the data to send to your widget, see examples.
+
+2 arguments are provided to each executed file
+* URL of the current running goDash
+* TOKEN of the current running goDash API
+You can use this if you want to send data to multiple widgets for example. (see example)
+
+# Feed data to your dashbord with a http call
+```
+curl -d '{ "auth_token": "YOUR_AUTH_TOKEN", "text": "Hey, Look what I can do!" } http://127.0.0.1:8080/widgets/YOUR_WIDGET_ID
+```
 
 
 Credits
 -------
 
-goDash is a Fork from [github.com/gigablah/dashing-go][5]
+goDash is a Fork from [github.com/gigablah/dashing-go][3]
 
 
 
