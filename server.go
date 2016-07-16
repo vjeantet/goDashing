@@ -282,7 +282,7 @@ func (s *Server) WidgetsCSSHandler(w http.ResponseWriter, r *http.Request) {
 			log.Printf(`Error while reading "%s" [%s]`, file, err)
 			continue
 		}
-		// log.Printf("(FS) %s", file)
+		log.Printf("(FS) %s", file)
 		w.Write(content)
 		w.Write([]byte("\n\n\n"))
 	}
@@ -296,10 +296,11 @@ func (s *Server) WidgetsCSSHandler(w http.ResponseWriter, r *http.Request) {
 		if path.Ext(filepath) == ".css" && !stringInSlice(s.webroot+"widgets/"+filepath, files) {
 			content, erre := box.String(filepath)
 			if erre != nil {
+				log.Printf(`BOX - Error while reading "%s" [%s]`, filepath, err)
 				return fmt.Errorf(`BOX - Error while reading "%s" [%s]`, filepath, err)
 			}
 
-			// log.Printf("(BOX) [%s] %s\n", box.Name(), filepath)
+			log.Printf("(BOX) [%s] %s\n", box.Name(), filepath)
 			w.Write([]byte(content))
 			w.Write([]byte("\n\n\n"))
 		}
