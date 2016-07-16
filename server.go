@@ -9,11 +9,13 @@ import (
 	"net/http"
 	"os"
 	"path"
+
 	"path/filepath"
 	"regexp"
 	"strings"
 
 	"github.com/GeertJohan/go.rice"
+	"github.com/GeertJohan/go.rice/embedded"
 	"github.com/clbanning/mxj"
 	"github.com/husobee/vestigo"
 	"gopkg.in/karlseguin/gerb.v0"
@@ -231,13 +233,11 @@ func stringInSlice(a string, list []string) bool {
 
 // WidgetsJSHandler serves widget templates.
 func (s *Server) WidgetsJSHandler(w http.ResponseWriter, r *http.Request) {
-	var box *rice.Box
-	var err error
 
 	w.Header().Set("Content-Type", "application/javascript; charset=UTF-8")
 
 	//Disk
-	files, err := filepath.Glob(s.webroot + "widgets/*/*.js")
+	files, _ := filepath.Glob(s.webroot + "widgets/*/*.js")
 	for _, file := range files {
 		content, err := ioutil.ReadFile(file)
 		if err != nil {
@@ -250,32 +250,19 @@ func (s *Server) WidgetsJSHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	//BOX
-	box, err = rice.FindBox("assets/widgets")
-	if err != nil {
-		return
-	}
-	box.Walk("", func(filepath string, f os.FileInfo, err error) error {
-		if path.Ext(filepath) == ".js" && !stringInSlice(s.webroot+"widgets/"+filepath, files) {
-			content, erre := box.String(filepath)
-			if erre != nil {
-				return fmt.Errorf(`BOX - Error while reading "%s" [%s]`, filepath, err)
-			}
-			// log.Printf("(BOX) [%s] %s\n", box.Name(), filepath)
-			w.Write([]byte(content))
+	for k, v := range embedded.EmbeddedBoxes["assets/widgets"].Files {
+		if filepath.Ext(k) == ".js" && !stringInSlice(s.webroot+"widgets/"+k, files) {
+			w.Write([]byte(v.Content))
 			w.Write([]byte("\n\n\n"))
 		}
-		return nil
-	})
+	}
 }
 
 func (s *Server) WidgetsCSSHandler(w http.ResponseWriter, r *http.Request) {
-	var box *rice.Box
-	var err error
-
 	w.Header().Set("Content-Type", "text/css; charset=UTF-8")
 
 	//Disk
-	files, err := filepath.Glob(s.webroot + "widgets/*/*.css")
+	files, _ := filepath.Glob(s.webroot + "widgets/*/*.css")
 	for _, file := range files {
 		content, err := ioutil.ReadFile(file)
 		if err != nil {
@@ -288,21 +275,12 @@ func (s *Server) WidgetsCSSHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	//BOX
-	box, err = rice.FindBox("assets/widgets")
-	if err != nil {
-		log.Printf("fdlmsk %s", err.Error())
-		return
-	}
-	box.Walk("", func(filepath string, f os.FileInfo, err error) error {
-		log.Printf("filepath %s", filepath)
-		if path.Ext(filepath) == ".css" && !stringInSlice(s.webroot+"widgets/"+filepath, files) {
-			content, _ := box.String(filepath)
-			log.Printf("(BOX) [%s] %s\n", box.Name(), filepath)
-			w.Write([]byte(content))
+	for k, v := range embedded.EmbeddedBoxes["assets/widgets"].Files {
+		if filepath.Ext(k) == ".css" && !stringInSlice(s.webroot+"widgets/"+k, files) {
+			w.Write([]byte(v.Content))
 			w.Write([]byte("\n\n\n"))
 		}
-		return nil
-	})
+	}
 
 }
 
