@@ -4,7 +4,7 @@ import (
 	"math/rand"
 	"time"
 
-	"github.com/vjeantet/dashing-go"
+	"github.com/vjeantet/goDash"
 )
 
 type samplebar struct{}

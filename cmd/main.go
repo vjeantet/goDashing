@@ -10,8 +10,8 @@ import (
 	"os"
 	"path/filepath"
 
-	"github.com/vjeantet/dashing-go"
-	_ "github.com/vjeantet/dashing-go/jobs"
+	"github.com/vjeantet/goDash"
+	_ "github.com/vjeantet/goDash/jobs"
 )
 
 func tokenAuthMiddleware(h http.Handler) http.Handler {
