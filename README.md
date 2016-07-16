@@ -1,7 +1,7 @@
 goDash
 ==========
 
-A [Go][1] port of [shopify/dashing][2] without any dependency !
+A working [Go][1] port of [shopify/dashing][2] without dependency.
 
 # Features
 * embeded web assets (javascript / css / ...) 
