@@ -25,6 +25,11 @@ $ ./goDash
 Open your browser, go to http://127.0.0.1:8080
 
 
+
+![alt tag](https://raw.githubusercontent.com/vjeantet/goDash/master/screenshot.png)
+
+
+
 ### settings
 Change some settings with env variables
 * ```PORT``` to choose which port to listen to
@@ -67,7 +72,7 @@ curl -d '{ "auth_token": "YOUR_AUTH_TOKEN", "text": "Hey, Look what I can do!" }
 ```
 
 
-# Use your custome assets, widgets...
+# Use your custom assets, widgets...
 * goDash looks for assets in a ```public``` folder, when it can not found a file in this folder, it will use its embeded one.
 
 ## Widgets
