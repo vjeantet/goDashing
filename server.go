@@ -290,16 +290,13 @@ func (s *Server) WidgetsCSSHandler(w http.ResponseWriter, r *http.Request) {
 	//BOX
 	box, err = rice.FindBox("assets/widgets")
 	if err != nil {
+		log.Printf("fdlmsk %s", err.Error())
 		return
 	}
 	err = box.Walk("", func(filepath string, f os.FileInfo, err error) error {
+		log.Printf("filepath %s", filepath)
 		if path.Ext(filepath) == ".css" && !stringInSlice(s.webroot+"widgets/"+filepath, files) {
-			content, erre := box.String(filepath)
-			if erre != nil {
-				log.Printf(`BOX - Error while reading "%s" [%s]`, filepath, err)
-				return fmt.Errorf(`BOX - Error while reading "%s" [%s]`, filepath, err)
-			}
-
+			content, _ := box.String(filepath)
 			log.Printf("(BOX) [%s] %s\n", box.Name(), filepath)
 			w.Write([]byte(content))
 			w.Write([]byte("\n\n\n"))
