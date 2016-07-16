@@ -67,6 +67,25 @@ curl -d '{ "auth_token": "YOUR_AUTH_TOKEN", "text": "Hey, Look what I can do!" }
 ```
 
 
+# Use your custome assets, widgets...
+* goDash looks for assets in a ```public``` folder, when it can not found a file in this folder, it will use its embeded one.
+
+## Widgets
+To add a custom widget "Test"
+* create a ```widgets``` folder in working directory
+	* create a ```Test``` folder
+		* add the ```Test.js```, ```Test.html```, ```Test.css``` files in it.
+
+goDash will use them as soon as you set a widget with a ```data-view="Test"```
+
+
+### COFFEESCRIPT ? SCSS ? JS ? CSS ?
+* convert coffeescript to js : http://js2.coffee
+* convert scss to css : http://www.sassmeister.com
+
+
+
+
 Credits
 -------
 
