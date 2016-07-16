@@ -81,16 +81,20 @@ create a ```conf/jiraissuecount.ini``` file in working directory.
 
 ```
 url = "https://jira.atlassian.com/"
-username = ""
+username = "" #if empty jira will be used anonymously
 password =  ""
 interval = 30
 ```
 
-add theses attributes to your widgets in the dashboard .gerb file.
-* ```jira-count-filter='12345'`` - goDash will search jiras with this filter and feed the widget with issues count.
-* ```jira-count-jql='resolution is EMPTY'`` - goDash will search jiras with this JQL and feed the widget with issues count.
-* ```jira-warning-over='10'`` - widget status will pass to warning
-* ```jira-danger-over='20'`` - widget status will pass to danger
+add theses attributes to your Number widget in the dashboard .gerb file.
+
+* search mode (use filter or jql)
+	* ```jira-count-filter='17531'`` - goDash will search jiras with this filter and feed the widget with issues count.
+	* ```jira-count-jql='resolution is EMPTY'`` - goDash will search jiras with this JQL and feed the widget with issues count.
+* status (optional)
+	* ```jira-warning-over='10'`` - widget status will pass to warning
+	* ```jira-danger-over='20'`` - widget status will pass to danger
+
 
 You don't need to restart goDash when editing gerb files to take changes into account.
 
