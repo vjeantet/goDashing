@@ -49,7 +49,9 @@ create a name_here.gerb file in the ```dashboards``` folder
 	* if you add a layout.gerb in a dashboards/subfolder it will be used by goDash when displaying a subfolder's dashboard.
 
 
-# Feed data to your dashbord with jobs
+# Feed data to your dashboard from jobs, http call or jira
+
+## Feed data to your dashboard with jobs
 When you place a file in ```jobs``` folder Then goDash will immediatly execute and schedule it according to this convention : ```NUMBEROFSECONDS_WIDGETID.ext```
 * filename has 2 parts :
 	* NUMBEROFSECONDS,  interval in seconds for each execution of this file.
@@ -65,17 +67,13 @@ The output of the executed file should be a json representing the data to send t
 
 You can use this if you want to send data to multiple widgets. (see example)
 
-# Feed data to your dashbord with a http call
+## Feed data to your dashboard with a http call
 ```
 curl -d '{ "auth_token": "YOUR_AUTH_TOKEN", "text": "Hey, Look what I can do!" } http://127.0.0.1:8080/widgets/YOUR_WIDGET_ID
 ```
 
 
-# Use your custom assets, widgets...
-* goDash looks for assets in a ```public``` folder, when it can not found a file in this folder, it will use its embeded one.
-
-
-# Feed data to your dashbord from a JIRA instance
+## Feed data to your dashboard from a JIRA instance
 create a ```conf/jiraissuecount.ini``` file in working directory.
 * set url, username, password, interval in the file, 
 
@@ -98,6 +96,8 @@ add theses attributes to your Number widget in the dashboard .gerb file.
 
 You don't need to restart goDash when editing gerb files to take changes into account.
 
+# Use your custom assets, widgets...
+* goDash looks for assets in a ```public``` folder, when it can not found a file in this folder, it will use its embeded one.
 
 ## Widgets
 To add a custom widget "Test"
