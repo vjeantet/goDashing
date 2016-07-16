@@ -9,9 +9,8 @@ A [Go][1] port of [shopify/dashing][2] without any dependency !
 * auto schedule and run jobs you place in ```jobs/``` folder
 
 # 1 minute start
-## Download binary here : 
-
-linux, windows, osx available here : https://github.com/vjeantet/goDash/releases
+## Download 
+linux, windows, osx binaries : https://github.com/vjeantet/goDash/releases
 
 ## Start goDash :
 ```
@@ -21,6 +20,7 @@ $ ./goDash
 * goDash will create a example dashboard and jobs to feed it
 	* if a ```dashboards``` folder already exists, it will not create it.
 	* if a ```jobs``` folder already exists, it will not create it.
+
 ## Enjoy :
 Open your browser, go to http://127.0.0.1:8080
 
@@ -37,12 +37,12 @@ create a name_here.gerb file in the ```dashboards``` folder
 
 * every 20s, goDash will switch to each dashboard it founds in this folder.
 * you can group your dashboard in a folder.
-	* example : ```dashboards/mygroup/dashboard1.gerb  will be available to http://127.0.0.1:8080/mygroup/dashboard1. 
+	* example : ```dashboards/subfolder/dashboard1.gerb```  will be available to http://127.0.0.1:8080/subfolder/dashboard1. 
 	* doDash will auto switch dashboards it founds in the sub folder.
 
 ## Customize layout
 * modify ```dashboards/layout.gerb```
-	* if you add a layout.gerb in a dashboards/subfolder it will be used by goDash when display a subfolder's dashboard.
+	* if you add a layout.gerb in a dashboards/subfolder it will be used by goDash when displaying a subfolder's dashboard.
 
 
 # Feed data to your dashbord with jobs
@@ -50,14 +50,16 @@ When you place a file in ```jobs``` folder Then goDash will immediatly execute a
 * filename has 2 parts :
 	* NUMBEROFSECONDS,  interval in seconds for each execution of this file.
 	* WIDGETID, the ID of the widget on your dashboard.
-	* .ext, If the file is a php file, it will be run assuming ```php``` is available on your system.
+* if the file is a php file, it will be run assuming ```php``` is available on your system.
+	* others extentions with be executed directly.
 
 The output of the exected file feed should be a json representing the data to send to your widget, see examples.
 
 2 arguments are provided to each executed file
-* URL of the current running goDash
-* TOKEN of the current running goDash API
-You can use this if you want to send data to multiple widgets for example. (see example)
+* The url of the current running goDash
+* the token of the current running goDash API
+
+You can use this if you want to send data to multiple widgets. (see example)
 
 # Feed data to your dashbord with a http call
 ```
