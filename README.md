@@ -57,7 +57,7 @@ When you place a file in ```jobs``` folder Then goDash will immediatly execute a
 * if the file is a php file, it will be run assuming ```php``` is available on your system.
 	* others extentions with be executed directly.
 
-The output of the exected file feed should be a json representing the data to send to your widget, see examples.
+The output of the executed file should be a json representing the data to send to your widget, see examples in ```jobs``` folder.
 
 2 arguments are provided to each executed file
 * The url of the current running goDash
@@ -73,6 +73,27 @@ curl -d '{ "auth_token": "YOUR_AUTH_TOKEN", "text": "Hey, Look what I can do!" }
 
 # Use your custom assets, widgets...
 * goDash looks for assets in a ```public``` folder, when it can not found a file in this folder, it will use its embeded one.
+
+
+# Feed data to your dashbord from a JIRA instance
+create a ```conf/jiraissuecount.ini``` file in working directory.
+* set url, username, password, interval in the file, 
+
+```
+url = "https://jira.atlassian.com/"
+username = ""
+password =  ""
+interval = 30
+```
+
+add theses attributes to your widgets in the dashboard .gerb file.
+* ```jira-count-filter='12345'`` - goDash will search jiras with this filter and feed the widget with issues count.
+* ```jira-count-jql='resolution is EMPTY'`` - goDash will search jiras with this JQL and feed the widget with issues count.
+* ```jira-warning-over='10'`` - widget status will pass to warning
+* ```jira-danger-over='20'`` - widget status will pass to danger
+
+You don't need to restart goDash when editing gerb files to take changes into account.
+
 
 ## Widgets
 To add a custom widget "Test"
