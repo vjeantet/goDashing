@@ -1,39 +1,42 @@
 goDash
 ==========
 
-A working [Go][1] port of [shopify/dashing][2] without dependency.
+goDash is [Golang][1] based framework that lets you build beautiful dashboards.
+This project is a "fork" of the original project [shopify/dashing][2] and [gigablah/dashing-go][3]
 
-# Features
-* embeded web assets (javascript / css / ...) 
-	* goDash will use your assets if they exists on disk. 
-* auto schedule and run jobs you place in ```jobs/``` folder
 
-# 1 minute start
-Download a binary accordingly to your system : https://github.com/vjeantet/goDash/releases
+Key features:
 
-## Start goDash :
+* Works out of the box, no server, runtime or dependency requiered.
+* Use premade widgets, or fully create your own with css, html, and js.
+* Push Data from JIRA to your dashboard with a html attribute
+* Auto-schedule and execute any script/binary file to feed data to your dashboard.
+* Use the API to push data to your dashboards.
+
+This dashing project was created at Shopify for displaying custom dashboards on TVs around the office.
+
+# Getting Started
+1. Get the app here https://github.com/vjeantet/goDash/releases
+
+2. Start goDash
 ```
 $ ./goDash
 ```
-* goDash will listen on port 8080
-* goDash will create a example dashboard and jobs to feed it
-	* if a ```dashboards``` folder already exists, it will not create it.
-	* if a ```jobs``` folder already exists, it will not create it.
 
-## Enjoy :
-Open your browser, go to http://127.0.0.1:8080
+3. Go to http://127.0.0.1:8080
+	Your should see something like : 
+	![alt tag](https://raw.githubusercontent.com/vjeantet/goDash/master/screenshot.png)	
 
 
-
-![alt tag](https://raw.githubusercontent.com/vjeantet/goDash/master/screenshot.png)
-
-
+On the first start goDash generates a demo dashboard and jobs to feed it.
 
 # Settings
-Change some settings with env variables
-* ```PORT``` to choose which port to listen to
-* ```WEBROOT``` to change the goDash working directory
-* ```TOKEN``` to set a token to use with Dashing API
+* default http port is 8080
+	* set a environnement variable ```PORT``` to change this.
+* default working directory is the path where it starts
+	* set ```WEBROOT```env var to change this.
+* default api TOKEN is empty
+	* set ```TOKEN```env var to change this.
 
 
 # Create a new dashboard
@@ -87,11 +90,11 @@ interval = 30
 add theses attributes to your Number widget in the dashboard .gerb file.
 
 * search mode (use filter or jql)
-	* ```jira-count-filter='17531'`` - goDash will search jiras with this filter and feed the widget with issues count.
-	* ```jira-count-jql='resolution is EMPTY'`` - goDash will search jiras with this JQL and feed the widget with issues count.
+	* ```jira-count-filter='17531'``` - goDash will search jiras with this filter and feed the widget with issues count.
+	* ```jira-count-jql='resolution is EMPTY'``` - goDash will search jiras with this JQL and feed the widget with issues count.
 * status (optional)
-	* ```jira-warning-over='10'`` - widget status will pass to warning
-	* ```jira-danger-over='20'`` - widget status will pass to danger
+	* ```jira-warning-over='10'``` - widget status will pass to warning
+	* ```jira-danger-over='20'``` - widget status will pass to danger
 
 
 You don't need to restart goDash when editing gerb files to take changes into account.
