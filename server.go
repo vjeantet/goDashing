@@ -9,6 +9,7 @@ import (
 	"net/http"
 	"os"
 	"path"
+	"sort"
 
 	"path/filepath"
 	"regexp"
@@ -359,42 +360,68 @@ func (s *Server) DashboardHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	dashboardNames := s.getDashboardNames(dashboardpath)
+	hasNext, nextDashboardName := s.getNextDashboardName(dashboardpath)
 
 	w.Header().Set("Content-Type", "text/html; charset=UTF-8")
 
 	template.Render(w, map[string]interface{}{
-		"dashboard":      dashboard,
-		"development":    s.dev,
-		"request":        r,
-		"dashboardnames": dashboardNames,
+		"dashboard":   dashboard,
+		"development": s.dev,
+		"request":     r,
+		"next":        hasNext,
+		"nextname":    folder + nextDashboardName,
 	})
 }
 
-func (s *Server) getDashboardNames(path string) string {
-	pathBlock := strings.SplitN(path, "/", 2)
-	basePath := ""
-	currentdb := pathBlock[0]
+func (s *Server) getNextDashboardName(path string) (bool, string) {
+	hasNext := false
+	nextDashboardName := ""
+	currentDashboardName := ""
 
-	if len(pathBlock) > 1 {
-		basePath = pathBlock[0] + "/"
-		currentdb = pathBlock[1]
+	pathBlock := strings.SplitN(path, "/", 2)
+
+	if len(pathBlock) == 1 {
+		path = ""
+		currentDashboardName = pathBlock[0]
+	} else {
+		path = pathBlock[0] + "/"
+		currentDashboardName = pathBlock[1]
 	}
 
-	bdnames := ""
+	dashboardNames := s.getDashboardNames(path)
+	if len(dashboardNames) < 2 {
+		return hasNext, nextDashboardName
+	}
+	hasNext = true
+
+	position := -1
+	for p, v := range dashboardNames {
+		if v == currentDashboardName {
+			position = p
+			break
+		}
+	}
+	if position+1 < len(dashboardNames) {
+		nextDashboardName = dashboardNames[position+1]
+	} else {
+		nextDashboardName = dashboardNames[0]
+	}
+
+	return hasNext, nextDashboardName
+}
+
+func (s *Server) getDashboardNames(basePath string) []string {
+	bdnames := []string{}
 
 	files, _ := filepath.Glob(s.webroot + "dashboards/" + basePath + "*.gerb")
 	for _, file := range files {
 		name := filepath.Base(file)
 		name = name[:len(name)-5]
-		if name != "layout" && name != currentdb {
-			bdnames = bdnames + basePath + name + " "
+		if name != "layout" {
+			bdnames = append(bdnames, name)
 		}
 	}
-
-	if bdnames != "" {
-		bdnames = basePath + currentdb + " " + bdnames
-	}
+	sort.Strings(bdnames)
 
 	return bdnames
 }
