@@ -4,7 +4,6 @@ goDash
 goDash is [Golang][1] based framework that lets you build beautiful dashboards.
 This project is a "fork" of the original project [shopify/dashing][2] and [gigablah/dashing-go][3]
 
-
 Key features:
 
 * Works out of the box, no server, runtime or dependency requiered.
@@ -17,13 +16,12 @@ This dashing project was created at Shopify for displaying custom dashboards on 
 
 # Getting Started
 1. Get the app here https://github.com/vjeantet/goDash/releases
-
 2. Start goDash
-```
-$ ./goDash
-```
-
+  ```
+  $ ./goDash
+  ```
 3. Go to http://127.0.0.1:8080
+
 	Your should see something like : 
 	![alt tag](https://raw.githubusercontent.com/vjeantet/goDash/master/screenshot.png)	
 
@@ -52,32 +50,43 @@ create a name_here.gerb file in the ```dashboards``` folder
 	* if you add a layout.gerb in a dashboards/subfolder it will be used by goDash when displaying a subfolder's dashboard.
 
 
-# Feed data to your dashboard from jobs, http call or jira
+# Feed data to your dashboard
 
-## Feed data to your dashboard with jobs
+## jobs folder usage
 When you place a file in ```jobs``` folder Then goDash will immediatly execute and schedule it according to this convention : ```NUMBEROFSECONDS_WIDGETID.ext```
-* filename has 2 parts :
+* the filename has 2 parts :
 	* NUMBEROFSECONDS,  interval in seconds for each execution of this file.
 	* WIDGETID, the ID of the widget on your dashboard.
-* if the file is a php file, it will be run assuming ```php``` is available on your system.
-	* others extentions with be executed directly.
 
 The output of the executed file should be a json representing the data to send to your widget, see examples in ```jobs``` folder.
 
-2 arguments are provided to each executed file
-* The url of the current running goDash
-* the token of the current running goDash API
-
+2 cli arguments are provided to each executed file
+1. The url of the current running goDash
+2. the token of the current running goDash API
+3. 
 You can use this if you want to send data to multiple widgets. (see example)
 
-## Feed data to your dashboard with a http call
+### PHP files
+When you add a php file to the ```job``` folder, goDash will  assume ```php``` is available on your system, and will run it with it.
+
+## HTTP call usage (dashing API)
 ```
 curl -d '{ "auth_token": "YOUR_AUTH_TOKEN", "text": "Hey, Look what I can do!" } http://127.0.0.1:8080/widgets/YOUR_WIDGET_ID
 ```
 
 
-## Feed data to your dashboard from a JIRA instance
-create a ```conf/jiraissuecount.ini``` file in working directory.
+## JIRA Jql and filters
+Edit your .gerb dashboard to add jira attributes to your widget :
+
+* ```jira-count-filter='17531'``` - goDash will search jiras with this filter and feed the widget with issues count.
+* ```jira-count-jql='resolution is EMPTY'``` - goDash will search jiras with this JQL and feed the widget with issues count.
+* ```jira-warning-over='10'``` - widget status will pass to warning when there is more dans 10 issues
+* ```jira-danger-over='20'``` - widget status will pass to danger when there is more dans 20 issues
+
+You don't need to restart goDash when editing gerb files to take changes into account.
+
+### jira configuration
+create a ```conf/jiraissuecount.ini``` file in goDash working directory.
 * set url, username, password, interval in the file, 
 
 ```
@@ -87,17 +96,6 @@ password =  ""
 interval = 30
 ```
 
-add theses attributes to your Number widget in the dashboard .gerb file.
-
-* search mode (use filter or jql)
-	* ```jira-count-filter='17531'``` - goDash will search jiras with this filter and feed the widget with issues count.
-	* ```jira-count-jql='resolution is EMPTY'``` - goDash will search jiras with this JQL and feed the widget with issues count.
-* status (optional)
-	* ```jira-warning-over='10'``` - widget status will pass to warning
-	* ```jira-danger-over='20'``` - widget status will pass to danger
-
-
-You don't need to restart goDash when editing gerb files to take changes into account.
 
 # Use your custom assets, widgets...
 * goDash looks for assets in a ```public``` folder, when it can not found a file in this folder, it will use its embeded one.
@@ -110,22 +108,15 @@ To add a custom widget "Test"
 
 goDash will use them as soon as you set a widget with a ```data-view="Test"```
 
+Be sure to look at the [list of third party widgets][4].
+
 
 ### COFFEESCRIPT ? SCSS ? JS ? CSS ?
 * convert coffeescript to js : http://js2.coffee
 * convert scss to css : http://www.sassmeister.com
 
 
-
-
-Credits
--------
-
-goDash is a Fork from [github.com/gigablah/dashing-go][3]
-
-
-
 [1]: http://golang.org
 [2]: http://shopify.github.io/dashing
 [3]: https://github.com/gigablah/dashing-go
-
+[4]: https://github.com/Shopify/dashing/wiki/Additional-Widgets
