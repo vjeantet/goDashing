@@ -16,10 +16,7 @@ This dashing project was created at Shopify for displaying custom dashboards on 
 
 # Getting Started
 1. Get the app here https://github.com/vjeantet/goDash/releases
-2. Start goDash
-  ```
-  $ ./goDash
-  ```
+2. Start goDash   ```$ ./goDash```
 3. Go to http://127.0.0.1:8080
 
 	Your should see something like : 
