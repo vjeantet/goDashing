@@ -8,8 +8,6 @@ import (
 	"strconv"
 	"time"
 
-	"gopkg.in/fsnotify.v1"
-
 	"github.com/BurntSushi/toml"
 	"github.com/PuerkitoBio/goquery"
 	"github.com/andygrunwald/go-jira"
@@ -57,12 +55,11 @@ func (j *jiraIssueCount) Work(send chan *dashing.Event, webroot string, url stri
 	j.readIndicators(webroot + "dashboards/")
 	j.pushData(send)
 
-	go j.watchChanges(webroot + "dashboards/")
-
 	ticker := time.NewTicker(time.Duration(j.config.Interval) * time.Second)
 	for {
 		select {
 		case <-ticker.C:
+			j.readIndicators(webroot + "dashboards/")
 			j.pushData(send)
 		}
 	}
@@ -137,7 +134,9 @@ func (j *jiraIssueCount) readIndicators(dashroot string) {
 	}
 
 	// open each gerb
-	files, _ := filepath.Glob(dashroot + "*.gerb")
+	files, _ := filepath.Glob(dashroot + "**/*.gerb")
+	files2, _ := filepath.Glob(dashroot + "*.gerb")
+	files = append(files, files2...)
 	for _, file := range files {
 		reader, err := os.Open(file)
 		if err != nil {
@@ -146,6 +145,7 @@ func (j *jiraIssueCount) readIndicators(dashroot string) {
 		}
 
 		doc, err := goquery.NewDocumentFromReader(reader)
+		reader.Close()
 		if err != nil {
 			log.Println("JiraJob : error goquery file : " + err.Error())
 			continue
@@ -208,37 +208,7 @@ func (j *jiraIssueCount) readIndicators(dashroot string) {
 					WarningOver: warningOver,
 				})
 		})
-
 	}
-}
-
-func (j *jiraIssueCount) watchChanges(dashroot string) {
-	watcher, err := fsnotify.NewWatcher()
-	if err != nil {
-		log.Fatal(err)
-	}
-	defer watcher.Close()
-
-	done := make(chan bool)
-	go func() {
-		for {
-			select {
-			case event := <-watcher.Events:
-				if event.Op&fsnotify.Write == fsnotify.Write {
-					j.readIndicators(dashroot)
-				}
-			case err := <-watcher.Errors:
-				log.Println("JiraJob : error:", err)
-			}
-		}
-	}()
-
-	err = watcher.Add(dashroot)
-	if err != nil {
-		log.Println(err)
-	}
-	<-done
-
 }
 
 func init() {
