@@ -344,7 +344,7 @@ func (s *Server) DashboardHandler(w http.ResponseWriter, r *http.Request) {
 
 	tplLayout, _, err = s.fileGetContent(folder+"layout.gerb", "dashboards")
 	if err != nil {
-		tplLayout, _, err = s.fileGetContent(s.webroot+"layout.gerb", "dashboards")
+		tplLayout, _, err = s.fileGetContent("layout.gerb", "dashboards")
 		if err != nil {
 			log.Printf("404 - %s - %s\n", "dashboards", "layout.gerb")
 			http.NotFound(w, r)
@@ -455,6 +455,7 @@ func (s *Server) NewRouter() http.Handler {
 	r.Get("/widgets.css", s.WidgetsCSSHandler)
 
 	r.Get("/events", s.EventsHandler)
+	r.Get("/:d/events", s.EventsHandler)
 	r.Get("/events:suffix", s.DashboardHandler) // workaround for router edge case
 
 	r.Post("/dashboards/:id", s.DashboardEventHandler)
