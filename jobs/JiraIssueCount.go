@@ -2,11 +2,14 @@ package jobs
 
 import (
 	"fmt"
+	"io/ioutil"
 	"log"
 	"os"
 	"path/filepath"
 	"strconv"
 	"time"
+
+	"gopkg.in/fsnotify.v1"
 
 	"github.com/BurntSushi/toml"
 	"github.com/PuerkitoBio/goquery"
@@ -28,10 +31,12 @@ type jiraIssueConfig struct {
 }
 
 type JiraIssurConfigIndicator struct {
-	Jql         string
-	WarningOver int
-	DangerOver  int
-	Interval    int
+	Jql          string
+	WarningOver  int
+	DangerOver   int
+	Interval     int
+	WarningUnder int
+	DangerUnder  int
 }
 
 func (j *jiraIssueCount) Work(send chan *dashing.Event, webroot string, url string, token string) {
@@ -55,11 +60,12 @@ func (j *jiraIssueCount) Work(send chan *dashing.Event, webroot string, url stri
 	j.readIndicators(webroot + "dashboards/")
 	j.pushData(send)
 
+	go j.watchChanges(webroot + "dashboards/")
+
 	ticker := time.NewTicker(time.Duration(j.config.Interval) * time.Second)
 	for {
 		select {
 		case <-ticker.C:
-			j.readIndicators(webroot + "dashboards/")
 			j.pushData(send)
 		}
 	}
@@ -92,6 +98,14 @@ func (j *jiraIssueCount) getIndicatorStatus(count int, indicator JiraIssurConfig
 	}
 
 	if indicator.WarningOver > 0 && count > indicator.WarningOver {
+		return "danger", nil
+	}
+
+	if indicator.DangerUnder > 0 && count < indicator.DangerUnder {
+		return "warning", nil
+	}
+
+	if indicator.WarningUnder > 0 && count < indicator.WarningUnder {
 		return "danger", nil
 	}
 
@@ -153,7 +167,7 @@ func (j *jiraIssueCount) readIndicators(dashroot string) {
 
 		// find job="jira-count-filter"
 		doc.Find("div[jira-count-filter]").Each(func(i int, s *goquery.Selection) {
-			var jobInterval, dangerOver, warningOver int
+			var jobInterval, dangerOver, warningOver, dangerUnder, warningUnder int
 
 			jobInterval = j.config.Interval
 			dangerOver = 0
@@ -165,25 +179,31 @@ func (j *jiraIssueCount) readIndicators(dashroot string) {
 			jobIntervalString, _ := s.Attr("jira-interval")
 			dangerOverString, _ := s.Attr("jira-danger-over")
 			warningOverString, _ := s.Attr("jira-warning-over")
+			dangerUnderString, _ := s.Attr("jira-danger-under")
+			warningUnderString, _ := s.Attr("jira-warning-under")
 
 			jobInterval, _ = strconv.Atoi(jobIntervalString)
 			dangerOver, _ = strconv.Atoi(dangerOverString)
 			warningOver, _ = strconv.Atoi(warningOverString)
+			dangerUnder, _ = strconv.Atoi(dangerUnderString)
+			warningUnder, _ = strconv.Atoi(warningUnderString)
 
 			// register indicator
 			j.config.Indicators.Set(widgetID,
 				JiraIssurConfigIndicator{
-					Jql:         "filter=" + jql,
-					Interval:    jobInterval,
-					DangerOver:  dangerOver,
-					WarningOver: warningOver,
+					Jql:          "filter=" + jql,
+					Interval:     jobInterval,
+					DangerOver:   dangerOver,
+					WarningOver:  warningOver,
+					DangerUnder:  dangerUnder,
+					WarningUnder: warningUnder,
 				})
 
 		})
 
 		// find job="jira-count-jql"
 		doc.Find("div[jira-count-jql]").Each(func(i int, s *goquery.Selection) {
-			var jobInterval, dangerOver, warningOver int
+			var jobInterval, dangerOver, warningOver, dangerUnder, warningUnder int
 			jobInterval = j.config.Interval
 			dangerOver = 0
 			warningOver = 0
@@ -194,21 +214,78 @@ func (j *jiraIssueCount) readIndicators(dashroot string) {
 			jobIntervalString, _ := s.Attr("jira-interval")
 			dangerOverString, _ := s.Attr("jira-danger-over")
 			warningOverString, _ := s.Attr("jira-warning-over")
+			dangerUnderString, _ := s.Attr("jira-danger-under")
+			warningUnderString, _ := s.Attr("jira-warning-under")
 
 			jobInterval, _ = strconv.Atoi(jobIntervalString)
 			dangerOver, _ = strconv.Atoi(dangerOverString)
 			warningOver, _ = strconv.Atoi(warningOverString)
+			dangerUnder, _ = strconv.Atoi(dangerUnderString)
+			warningUnder, _ = strconv.Atoi(warningUnderString)
 
 			// register indicator
 			j.config.Indicators.Set(widgetID,
 				JiraIssurConfigIndicator{
-					Jql:         jql,
-					Interval:    jobInterval,
-					DangerOver:  dangerOver,
-					WarningOver: warningOver,
+					Jql:          jql,
+					Interval:     jobInterval,
+					DangerOver:   dangerOver,
+					WarningOver:  warningOver,
+					DangerUnder:  dangerUnder,
+					WarningUnder: warningUnder,
 				})
 		})
 	}
+}
+
+func (j *jiraIssueCount) watchChanges(dashroot string) {
+	watcher, err := fsnotify.NewWatcher()
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer watcher.Close()
+
+	done := make(chan bool)
+	go func() {
+		for {
+			select {
+			case event := <-watcher.Events:
+				if event.Op&fsnotify.Write == fsnotify.Write {
+					j.readIndicators(dashroot)
+				}
+
+				if event.Op&fsnotify.Create == fsnotify.Create {
+					f, _ := os.Stat(event.Name)
+					if f.IsDir() {
+						err = watcher.Add(dashroot + f.Name())
+						if err != nil {
+							log.Println(err)
+						}
+					}
+				}
+
+			case err := <-watcher.Errors:
+				log.Println("JiraJob : error:", err)
+			}
+		}
+	}()
+
+	err = watcher.Add(dashroot)
+	if err != nil {
+		log.Println(err)
+	}
+	files, _ := ioutil.ReadDir(dashroot)
+	for _, f := range files {
+		if f.IsDir() {
+			err = watcher.Add(dashroot + f.Name())
+			if err != nil {
+				log.Println(err)
+			}
+		}
+
+	}
+
+	<-done
+
 }
 
 func init() {
