@@ -134,7 +134,7 @@ func (j *jiraIssueCount) getNumberOfIssues(jql string) (int, error) {
 
 	_, body, err := jiraClient.Issue.Search(jql, &options)
 	if err != nil {
-		return 0, fmt.Errorf("JiraJob : error jira search : %s", err)
+		return 0, fmt.Errorf("JiraJob : search error : %s, %s", err, jql)
 	}
 
 	return body.Total, nil
@@ -143,7 +143,7 @@ func (j *jiraIssueCount) getNumberOfIssues(jql string) (int, error) {
 
 func (j *jiraIssueCount) readIndicators(dashroot string) {
 	//init empty Indicators
-	for k, _ := range j.config.Indicators.Items() {
+	for k := range j.config.Indicators.Items() {
 		j.config.Indicators.Remove(k)
 	}
 
