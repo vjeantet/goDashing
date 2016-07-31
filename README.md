@@ -1,6 +1,8 @@
 goDash
 ==========
 
+[![Codewake](https://www.codewake.com/badges/ask_question_flat_square.svg)](https://www.codewake.com/p/godash)
+
 goDash is [Golang][1] based framework that lets you build beautiful dashboards.
 This project is a "fork" of the original project [shopify/dashing][2] and [gigablah/dashing-go][3]
 
