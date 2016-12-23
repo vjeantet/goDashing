@@ -4,7 +4,7 @@ import (
 	"math/rand"
 	"time"
 
-	"github.com/vjeantet/goDash"
+	"github.com/vjeantet/goDashing"
 )
 
 type piechart struct{}

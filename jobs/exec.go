@@ -15,7 +15,7 @@ import (
 
 	"github.com/carlescere/scheduler"
 	"github.com/streamrail/concurrent-map"
-	"github.com/vjeantet/goDash"
+	"github.com/vjeantet/goDashing"
 )
 
 type execJob struct {

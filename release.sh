@@ -1,7 +1,7 @@
 #!/bin/bash
 #https://gist.github.com/bclinkinbeard/1331790
 versionLabel=$1
-productName="goDash"
+productName="goDashing"
 releaseFolder="release/"
 
 rm ${releaseFolder}*.tgz
