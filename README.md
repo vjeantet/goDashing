@@ -10,8 +10,8 @@ Key features:
 
 * Works out of the box, no server, runtime or dependency requiered.
 * Use premade widgets, or fully create your own with css, html, and js.
-* Push Data from JIRA to your dashboard with a html attribute
-* Auto-schedule and execute any script/binary file to feed data to your dashboard.
+* Pull Data from JIRA to your dashboard with a html attribute.
+* Schedule and execute any script/binary file to feed data to your dashboard.
 * Use the API to push data to your dashboards.
 
 This dashing project was created at Shopify for displaying custom dashboards on TVs around the office.
